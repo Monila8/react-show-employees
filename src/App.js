@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from "react"
 import Employee from "./Employees"
 
 function App() {
-  const employee = [
+  const [employeeCount, setEmployeeCount] = useState(0)
+
+  const incrementEmployeeCount = () => {
+    setEmployeeCount(employeeCount + 1)
+  }
+
+  const employeeList = [
     {
       id: 123,
       name: "Foo Perez",
@@ -20,13 +26,15 @@ function App() {
   return (
     <div>
       <h1>Employee details:</h1>
-      {employee.map((employee) => (
+      <p>Position change counter: {employeeCount}</p>
+      {employeeList.map((employee) => (
         <Employee
           key={employee.id}
           id={employee.id}
           name={employee.name}
           position={employee.position}
           salary={employee.salary}
+          incrementEmployeeCount={incrementEmployeeCount}
         />
       ))}
     </div>
