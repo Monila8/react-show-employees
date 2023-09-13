@@ -1,21 +1,28 @@
 import React, { useState } from "react"
 import "./Employee.css"
 
-function Employee(props) {
-  const [position, setPosition] = useState(props.position)
-  const [newPosition, setNewPosition] = useState("")
+function Employee({ id, name, position, salary, outstanding, toggleOutstanding, incrementPosition, updatePosition }) {
+    const [newPosition, setNewPosition] = useState("")
 
   const changePosition = () => {
-    setPosition(newPosition)
-    setNewPosition("")
-    props.incrementEmployeeCount() // Incrementar el contador global
+  updatePosition(newPosition)
+  setNewPosition("")
+  incrementPosition()
   }
-
+ 
+//   return (
+//     <div>
+//       <p1 className="info">
+//         ID: {props.id}, Name: {props.name}, Position: {position}, Salary: ${props.salary}     
+//   
   return (
-    <div>
-      <p1 className="info">
-        ID: {props.id}, Name. {props.name}, Position: {position}, Salary: ${props.salary}
-      </p1>
+    <div className={`employee-container ${outstanding ? "Outstanding" : ""}`}>
+      <h3>Employee {id}</h3>
+      <div className="employee-data">
+        <div>Name: {name}</div>
+        <div>Position: {position}</div>
+        <div>Salary: {salary}</div>
+      </div>
       <input
         type="text"
         value={newPosition}
@@ -27,8 +34,13 @@ function Employee(props) {
         onClick={changePosition}>
         Change position
       </button>
+
+      <button onClick={() => toggleOutstanding(id)}>
+        {outstanding ? "Delete outstanding" : "Stand out"}
+      </button>
     </div>
   )
 }
+
 
 export default Employee
